@@ -10,3 +10,7 @@ export const addContact = createAction('phonebook/add', (name, number) => ({
 }));
 export const deleteContact = createAction('phonebook/delete');
 export const changeFilter = createAction('phonebook/changeFilter');
+
+export const fetchContactsRequest = createAction('phonebook/fetchContactsRequest');
+export const fetchContactsSuccess = createAction('phonebook/fetchContactsSuccsess');
+export const fetchContactsError = createAction('phonebook/fetchContactsError');

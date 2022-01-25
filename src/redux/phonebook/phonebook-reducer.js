@@ -8,10 +8,21 @@ const initialFilterState = '';
 const itemsReducer = createReducer(initialItemsState, {
   [actions.addContact]: (state, { payload }) => [...state, payload],
   [actions.deleteContact]: (state, { payload }) => state.filter(({ id }) => id !== payload),
+  [actions.fetchContactsSuccess]: (_, { payload }) => payload,
 });
 
 const filterReducer = createReducer(initialFilterState, {
   [actions.changeFilter]: (_, { payload }) => payload,
 });
 
-export default combineReducers({ items: itemsReducer, filter: filterReducer });
+const isLoadingReducer = createReducer(false, {
+  [actions.fetchContactsRequest]: () => true,
+  [actions.fetchContactsSuccess]: () => false,
+  [actions.fetchContactsError]: () => false,
+});
+
+export default combineReducers({
+  items: itemsReducer,
+  filter: filterReducer,
+  isLoading: isLoadingReducer,
+});
