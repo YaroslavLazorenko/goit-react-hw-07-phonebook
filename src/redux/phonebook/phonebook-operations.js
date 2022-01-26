@@ -12,3 +12,15 @@ export const fetchContacts = createAsyncThunk(
     }
   },
 );
+
+export const postContacts = createAsyncThunk(
+  'phonebook/postContacts',
+  async ({ name, number }, { rejectWithValue }) => {
+    try {
+      const id = await phonebookApi.postContacts(name, number);
+      return { id, name, number };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
