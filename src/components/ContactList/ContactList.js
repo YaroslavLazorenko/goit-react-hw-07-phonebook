@@ -4,16 +4,13 @@ import { phonebookSelectors } from 'redux/phonebook';
 import s from './ContactList.module.css';
 
 const ContactList = () => {
-  const contacts = useSelector(phonebookSelectors.getContactsItems);
-  const filter = useSelector(phonebookSelectors.getContactsFilter);
+  const filteredContacts = useSelector(phonebookSelectors.getFilteredContactsItems);
 
   return (
     <ul className={s.list}>
-      {contacts
-        .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
-        .map(contact => {
-          return <ContactItem contact={contact} key={contact.name} />;
-        })}
+      {filteredContacts.map(contact => {
+        return <ContactItem contact={contact} key={contact.name} />;
+      })}
     </ul>
   );
 };

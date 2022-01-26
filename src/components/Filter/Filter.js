@@ -4,7 +4,7 @@ import { phonebookSelectors } from 'redux/phonebook';
 import s from './Filter.module.css';
 
 const Filter = () => {
-  const filterValue = useSelector(phonebookSelectors.getContactsFilter);
+  const filter = useSelector(phonebookSelectors.getContactsFilter);
   const dispatch = useDispatch();
 
   return (
@@ -15,7 +15,7 @@ const Filter = () => {
         type="text"
         name="filter"
         placeholder="Enter name"
-        value={filterValue}
+        value={filter}
         onChange={e => dispatch(phonebookActions.changeFilter(e.target.value))}
       ></input>
     </>
