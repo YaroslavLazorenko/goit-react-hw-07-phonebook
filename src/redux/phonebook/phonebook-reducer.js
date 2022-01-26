@@ -21,8 +21,14 @@ const isLoadingReducer = createReducer(false, {
   [actions.fetchContactsError]: () => false,
 });
 
+const errorReducer = createReducer(null, {
+  [actions.fetchContactsError]: (_, { payload }) => payload,
+  [actions.fetchContactsRequest]: () => null,
+});
+
 export default combineReducers({
   items: itemsReducer,
   filter: filterReducer,
   isLoading: isLoadingReducer,
+  error: errorReducer,
 });

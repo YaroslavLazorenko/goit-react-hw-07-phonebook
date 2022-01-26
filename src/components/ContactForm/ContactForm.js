@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actions from '../../redux/phonebook/phonebook-actions';
-import { getContactsItems } from '../../redux/phonebook/phonebook-selectors';
+import { phonebookActions } from 'redux/phonebook';
+import { phonebookSelectors } from 'redux/phonebook';
 import s from './ContactForm.module.css';
 
 const INITIAL_FORM_LOCAL_STATE = { name: '', number: '' };
 
 const ContactForm = () => {
-  const contacts = useSelector(getContactsItems);
+  const contacts = useSelector(phonebookSelectors.getContactsItems);
   const dispatch = useDispatch();
 
   const [name, setName] = useState('');
@@ -33,7 +33,7 @@ const ContactForm = () => {
     }
   };
 
-  const addContact = (name, number) => dispatch(actions.addContact(name, number));
+  const addContact = (name, number) => dispatch(phonebookActions.addContact(name, number));
 
   const handleSubmit = e => {
     e.preventDefault();

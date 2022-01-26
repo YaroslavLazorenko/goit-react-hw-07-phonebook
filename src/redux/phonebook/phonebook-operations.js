@@ -1,5 +1,5 @@
 import * as phonebookActions from './phonebook-actions';
-import phonebookApi from '../../services/phonebook-api';
+import * as phonebookApi from '../../services/phonebook-api';
 
 export const fetchContacts = () => async dispatch => {
   dispatch(phonebookActions.fetchContactsRequest());
