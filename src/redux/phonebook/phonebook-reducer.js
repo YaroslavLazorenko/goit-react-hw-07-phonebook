@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import * as actions from './phonebook-actions';
+import { fetchContacts } from './phonebook-operations';
 
 const initialItemsState = [];
 const initialFilterState = '';
@@ -8,7 +9,7 @@ const initialFilterState = '';
 const itemsReducer = createReducer(initialItemsState, {
   [actions.addContact]: (state, { payload }) => [...state, payload],
   [actions.deleteContact]: (state, { payload }) => state.filter(({ id }) => id !== payload),
-  [actions.fetchContactsSuccess]: (_, { payload }) => payload,
+  [fetchContacts.fulfilled]: (_, { payload }) => payload,
 });
 
 const filterReducer = createReducer(initialFilterState, {
@@ -16,14 +17,14 @@ const filterReducer = createReducer(initialFilterState, {
 });
 
 const isLoadingReducer = createReducer(false, {
-  [actions.fetchContactsRequest]: () => true,
-  [actions.fetchContactsSuccess]: () => false,
-  [actions.fetchContactsError]: () => false,
+  [fetchContacts.pending]: () => true,
+  [fetchContacts.fulfilled]: () => false,
+  [fetchContacts.rejected]: () => false,
 });
 
 const errorReducer = createReducer(null, {
-  [actions.fetchContactsError]: (_, { payload }) => payload,
-  [actions.fetchContactsRequest]: () => null,
+  [fetchContacts.rejected]: (_, { payload }) => payload,
+  [fetchContacts.pending]: () => null,
 });
 
 export default combineReducers({
