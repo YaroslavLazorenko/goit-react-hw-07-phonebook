@@ -7,11 +7,13 @@ import s from './ContactForm.module.css';
 const INITIAL_FORM_LOCAL_STATE = { name: '', number: '' };
 
 const ContactForm = () => {
-  const contacts = useSelector(phonebookSelectors.getContactsItems);
-  const dispatch = useDispatch();
-
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const contacts = useSelector(phonebookSelectors.getContactsItems);
+  const isLoading = useSelector(phonebookSelectors.getLoadingStatus);
+
+  const dispatch = useDispatch();
 
   const resetForm = () => {
     setName(INITIAL_FORM_LOCAL_STATE.name);
@@ -84,7 +86,7 @@ const ContactForm = () => {
         onChange={handleChange}
       />
 
-      <button className={s.button} type="submit">
+      <button className={s.button} type="submit" disabled={isLoading}>
         Add contact
       </button>
     </form>

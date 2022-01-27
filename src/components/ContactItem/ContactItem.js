@@ -1,10 +1,11 @@
 import { PropTypes } from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { phonebookOperations } from 'redux/phonebook';
+import { useDispatch, useSelector } from 'react-redux';
+import { phonebookOperations, phonebookSelectors } from 'redux/phonebook';
 import s from './ContactItem.module.css';
 
 const ContactItem = ({ contact }) => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(phonebookSelectors.getLoadingStatus);
 
   return (
     <li className={s.contactItem}>
@@ -14,6 +15,7 @@ const ContactItem = ({ contact }) => {
       <button
         className={s.button}
         onClick={() => dispatch(phonebookOperations.deleteContact(contact.id))}
+        disabled={isLoading}
       >
         Delete
       </button>
